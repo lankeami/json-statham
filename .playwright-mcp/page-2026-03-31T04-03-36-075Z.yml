@@ -1,0 +1,48 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]: "{ } json-statham"
+    - generic [ref=e4]: "|"
+    - generic [ref=e5]:
+      - generic [ref=e6]: jq>
+      - textbox "Enter jq expression..." [ref=e7]: .users[] | select(.active == true) | .name
+    - button "📋 Copy" [ref=e8] [cursor=pointer]
+    - button "☾ / ☼" [ref=e9] [cursor=pointer]
+  - generic [ref=e10]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: Input
+      - textbox [ref=e14]: "{\"users\":[{\"name\":\"Jason Statham\",\"active\":true,\"roles\":[\"admin\",\"user\"],\"metadata\":{\"joined\":\"2024-01-15\",\"loginCount\":847}},{\"name\":\"Bob Smith\",\"active\":false,\"roles\":[\"user\"],\"metadata\":{\"joined\":\"2024-06-20\",\"loginCount\":23}},{\"name\":\"Alice Chen\",\"active\":true,\"roles\":[\"admin\",\"moderator\"],\"metadata\":{\"joined\":\"2023-11-01\",\"loginCount\":1204}}],\"count\":3,\"version\":\"2.1.0\"}"
+      - button "Format & Query" [ref=e16] [cursor=pointer]
+    - generic [ref=e17]:
+      - generic [ref=e18]: Output
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic [ref=e21] [cursor=pointer]: ▼
+          - text: "{"
+        - generic [ref=e22]:
+          - generic [ref=e23] [cursor=pointer]: ▼
+          - text: "\"users\": ["
+        - generic [ref=e24]:
+          - generic [ref=e25] [cursor=pointer]: ▼
+          - text: "{"
+        - generic [ref=e26]: "\"name\": \"Jason Statham\","
+        - generic [ref=e27]: "\"active\": true,"
+        - generic [ref=e28]:
+          - generic [ref=e29] [cursor=pointer]: ▶
+          - text: "\"roles\": [ ... 2 items ],"
+        - generic [ref=e30]:
+          - generic [ref=e31] [cursor=pointer]: ▶
+          - text: "\"metadata\": { ... 2 keys }"
+        - generic [ref=e32]: "},"
+        - generic [ref=e33]:
+          - generic [ref=e34] [cursor=pointer]: ▶
+          - text: "{ ... 4 keys },"
+        - generic [ref=e35]:
+          - generic [ref=e36] [cursor=pointer]: ▶
+          - text: "{ ... 4 keys }"
+        - generic [ref=e37]: "],"
+        - generic [ref=e38]: "\"count\": 3,"
+        - generic [ref=e39]: "\"version\": \"2.1.0\""
+        - generic [ref=e40]: "}"
+  - generic [ref=e41]:
+    - generic [ref=e42]: ✓ Valid JSON • 3 keys • 412 bytes
+    - generic [ref=e43]: "jq result: 2 items"

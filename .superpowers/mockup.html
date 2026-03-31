@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JSON Statham - Mockup</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; background: #1e1e2e; color: #cdd6f4; height: 100vh; display: flex; flex-direction: column; }
+
+  /* Top bar */
+  .topbar { background: #313244; padding: 10px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #45475a; }
+  .logo { font-weight: bold; font-size: 16px; color: #cba6f7; white-space: nowrap; }
+  .separator { color: #6c7086; font-size: 12px; }
+  .jq-bar { flex: 1; display: flex; align-items: center; gap: 8px; }
+  .jq-label { color: #a6adc8; font-size: 13px; white-space: nowrap; }
+  .jq-input { flex: 1; background: #1e1e2e; border: 1px solid #45475a; border-radius: 4px; padding: 6px 10px; color: #f38ba8; font-size: 13px; font-family: inherit; outline: none; }
+  .jq-input:focus { border-color: #cba6f7; }
+  .btn { background: #45475a; border: none; border-radius: 4px; padding: 6px 12px; font-size: 12px; color: #a6adc8; cursor: pointer; font-family: inherit; }
+  .btn:hover { background: #585b70; }
+
+  /* Panels */
+  .panels { flex: 1; display: flex; overflow: hidden; }
+  .panel { flex: 1; display: flex; flex-direction: column; }
+  .panel + .panel { border-left: 1px solid #45475a; }
+  .panel-header { padding: 6px 12px; background: #181825; font-size: 11px; color: #6c7086; border-bottom: 1px solid #45475a; text-transform: uppercase; letter-spacing: 1px; }
+  .panel-body { flex: 1; padding: 12px; font-size: 13px; line-height: 1.7; overflow: auto; }
+  .panel-footer { padding: 8px 12px; background: #181825; border-top: 1px solid #45475a; text-align: center; }
+
+  /* Input panel */
+  .input-text { width: 100%; height: 100%; background: transparent; border: none; color: #a6adc8; font-family: inherit; font-size: 13px; line-height: 1.7; resize: none; outline: none; }
+  .format-btn { background: #cba6f7; color: #1e1e2e; border: none; border-radius: 4px; padding: 6px 24px; font-size: 13px; font-weight: bold; cursor: pointer; font-family: inherit; }
+  .format-btn:hover { background: #b4befe; }
+
+  /* Output panel - JSON tree */
+  .json-key { color: #89b4fa; }
+  .json-string { color: #a6e3a1; }
+  .json-number { color: #fab387; }
+  .json-bool { color: #fab387; }
+  .json-null { color: #6c7086; }
+  .json-bracket { color: #cdd6f4; }
+  .json-toggle { color: #6c7086; cursor: pointer; user-select: none; display: inline-block; width: 16px; text-align: center; }
+  .json-toggle:hover { color: #cba6f7; }
+  .json-collapsed-hint { color: #6c7086; font-style: italic; font-size: 12px; }
+  .json-line { padding-left: 0; }
+  .indent-1 { padding-left: 20px; }
+  .indent-2 { padding-left: 40px; }
+  .indent-3 { padding-left: 60px; }
+
+  /* Status bar */
+  .statusbar { background: #181825; padding: 4px 12px; font-size: 11px; color: #6c7086; border-top: 1px solid #45475a; display: flex; justify-content: space-between; }
+
+  /* Light theme */
+  @media (prefers-color-scheme: light) {
+    body { background: #eff1f5; color: #4c4f69; }
+    .topbar { background: #e6e9ef; border-color: #ccd0da; }
+    .logo { color: #8839ef; }
+    .jq-input { background: #eff1f5; border-color: #ccd0da; color: #d20f39; }
+    .jq-input:focus { border-color: #8839ef; }
+    .btn { background: #ccd0da; color: #5c5f77; }
+    .btn:hover { background: #bcc0cc; }
+    .panel-header { background: #dce0e8; border-color: #ccd0da; }
+    .panel + .panel { border-color: #ccd0da; }
+    .panel-footer { background: #dce0e8; border-color: #ccd0da; }
+    .input-text { color: #5c5f77; }
+    .format-btn { background: #8839ef; color: #eff1f5; }
+    .format-btn:hover { background: #7287fd; }
+    .json-key { color: #1e66f5; }
+    .json-string { color: #40a02b; }
+    .json-number { color: #fe640b; }
+    .json-bool { color: #fe640b; }
+    .json-null { color: #9ca0b0; }
+    .json-bracket { color: #4c4f69; }
+    .json-toggle { color: #9ca0b0; }
+    .json-toggle:hover { color: #8839ef; }
+    .json-collapsed-hint { color: #9ca0b0; }
+    .statusbar { background: #dce0e8; border-color: #ccd0da; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <span class="logo">{ } json-statham</span>
+    <span class="separator">|</span>
+    <div class="jq-bar">
+      <span class="jq-label">jq&gt;</span>
+      <input class="jq-input" type="text" value=".users[] | select(.active == true) | .name" placeholder="Enter jq expression...">
+    </div>
+    <button class="btn">&#128203; Copy</button>
+    <button class="btn">&#9790; / &#9788;</button>
+  </div>
+
+  <!-- Panels -->
+  <div class="panels">
+
+    <!-- Input -->
+    <div class="panel">
+      <div class="panel-header">Input</div>
+      <div class="panel-body">
+        <textarea class="input-text" spellcheck="false">{"users":[{"name":"Jason Statham","active":true,"roles":["admin","user"],"metadata":{"joined":"2024-01-15","loginCount":847}},{"name":"Bob Smith","active":false,"roles":["user"],"metadata":{"joined":"2024-06-20","loginCount":23}},{"name":"Alice Chen","active":true,"roles":["admin","moderator"],"metadata":{"joined":"2023-11-01","loginCount":1204}}],"count":3,"version":"2.1.0"}</textarea>
+      </div>
+      <div class="panel-footer">
+        <button class="format-btn">Format &amp; Query</button>
+      </div>
+    </div>
+
+    <!-- Output -->
+    <div class="panel">
+      <div class="panel-header">Output</div>
+      <div class="panel-body">
+        <div class="json-line"><span class="json-toggle">&#9660;</span> <span class="json-bracket">{</span></div>
+
+        <div class="json-line indent-1"><span class="json-toggle">&#9660;</span> <span class="json-key">"users"</span>: <span class="json-bracket">[</span></div>
+
+        <div class="json-line indent-2"><span class="json-toggle">&#9660;</span> <span class="json-bracket">{</span></div>
+        <div class="json-line indent-3"><span class="json-key">"name"</span>: <span class="json-string">"Jason Statham"</span>,</div>
+        <div class="json-line indent-3"><span class="json-key">"active"</span>: <span class="json-bool">true</span>,</div>
+        <div class="json-line indent-3"><span class="json-toggle">&#9654;</span> <span class="json-key">"roles"</span>: <span class="json-bracket">[</span><span class="json-collapsed-hint"> ... 2 items </span><span class="json-bracket">]</span>,</div>
+        <div class="json-line indent-3"><span class="json-toggle">&#9654;</span> <span class="json-key">"metadata"</span>: <span class="json-bracket">{</span><span class="json-collapsed-hint"> ... 2 keys </span><span class="json-bracket">}</span></div>
+        <div class="json-line indent-2"><span class="json-bracket">},</span></div>
+
+        <div class="json-line indent-2"><span class="json-toggle">&#9654;</span> <span class="json-bracket">{</span><span class="json-collapsed-hint"> ... 4 keys </span><span class="json-bracket">},</span></div>
+
+        <div class="json-line indent-2"><span class="json-toggle">&#9654;</span> <span class="json-bracket">{</span><span class="json-collapsed-hint"> ... 4 keys </span><span class="json-bracket">}</span></div>
+
+        <div class="json-line indent-1"><span class="json-bracket">],</span></div>
+
+        <div class="json-line indent-1"><span class="json-key">"count"</span>: <span class="json-number">3</span>,</div>
+        <div class="json-line indent-1"><span class="json-key">"version"</span>: <span class="json-string">"2.1.0"</span></div>
+
+        <div class="json-line"><span class="json-bracket">}</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Status bar -->
+  <div class="statusbar">
+    <span>&#10003; Valid JSON &bull; 3 keys &bull; 412 bytes</span>
+    <span>jq result: 2 items</span>
+  </div>
+
+</body>
+</html>
