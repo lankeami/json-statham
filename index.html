@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>json-statham</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <span class="logo">{ } json-statham</span>
+    <span class="separator">|</span>
+    <div class="jq-bar">
+      <span class="jq-label">jq&gt;</span>
+      <input
+        class="jq-input"
+        id="jqInput"
+        type="text"
+        placeholder="Enter jq expression... (e.g. .users[] | .name)"
+        spellcheck="false"
+        autocomplete="off"
+      >
+    </div>
+    <button class="btn" id="copyBtn" title="Copy output to clipboard">Copy</button>
+    <button class="btn" id="themeBtn" title="Toggle theme"></button>
+  </div>
+
+  <!-- Panels -->
+  <div class="panels">
+    <!-- Input Panel -->
+    <div class="panel">
+      <div class="panel-header">Input</div>
+      <div class="panel-body">
+        <textarea
+          class="input-text"
+          id="jsonInput"
+          placeholder="Paste JSON here..."
+          spellcheck="false"
+        ></textarea>
+      </div>
+      <div class="panel-footer">
+        <button class="format-btn" id="formatBtn">Format &amp; Query</button>
+      </div>
+    </div>
+
+    <!-- Output Panel -->
+    <div class="panel">
+      <div class="panel-header">Output</div>
+      <div class="panel-body" id="output"></div>
+    </div>
+  </div>
+
+  <!-- Status Bar -->
+  <div class="statusbar">
+    <span id="statusLeft">Paste JSON and click Format &amp; Query</span>
+    <span id="statusRight"></span>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
