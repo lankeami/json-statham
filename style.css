@@ -1,0 +1,298 @@
+/* style.css — JSON Statham */
+
+/* === Reset & Base === */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* === Dark Theme (default) === */
+[data-theme="dark"] {
+  --bg: #1e1e2e;
+  --surface: #313244;
+  --subtle: #181825;
+  --border: #45475a;
+  --text: #cdd6f4;
+  --muted: #6c7086;
+  --accent: #cba6f7;
+  --accent-hover: #b4befe;
+  --json-key: #89b4fa;
+  --json-string: #a6e3a1;
+  --json-number: #fab387;
+  --json-bool: #fab387;
+  --json-null: #6c7086;
+  --json-bracket: #cdd6f4;
+  --jq-text: #f38ba8;
+  --error: #f38ba8;
+  --success: #a6e3a1;
+  --input-bg: transparent;
+}
+
+/* === Light Theme === */
+[data-theme="light"] {
+  --bg: #eff1f5;
+  --surface: #e6e9ef;
+  --subtle: #dce0e8;
+  --border: #ccd0da;
+  --text: #4c4f69;
+  --muted: #9ca0b0;
+  --accent: #8839ef;
+  --accent-hover: #7287fd;
+  --json-key: #1e66f5;
+  --json-string: #40a02b;
+  --json-number: #fe640b;
+  --json-bool: #fe640b;
+  --json-null: #9ca0b0;
+  --json-bracket: #4c4f69;
+  --jq-text: #d20f39;
+  --error: #d20f39;
+  --success: #40a02b;
+  --input-bg: transparent;
+}
+
+/* === Layout === */
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* === Top Bar === */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.separator {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.jq-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jq-label {
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.jq-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px 10px;
+  color: var(--jq-text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  outline: none;
+}
+
+.jq-input:focus {
+  border-color: var(--accent);
+}
+
+.btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px 12px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+/* === Panels === */
+.panels {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.panel + .panel {
+  border-left: 1px solid var(--border);
+}
+
+.panel-header {
+  padding: 4px 12px;
+  background: var(--subtle);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.panel-body {
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+  min-height: 0;
+}
+
+.panel-footer {
+  padding: 8px 12px;
+  background: var(--subtle);
+  border-top: 1px solid var(--border);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* === Input textarea === */
+.input-text {
+  width: 100%;
+  height: 100%;
+  background: var(--input-bg);
+  border: none;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  resize: none;
+  outline: none;
+}
+
+.input-text::placeholder {
+  color: var(--muted);
+}
+
+/* === Format button === */
+.format-btn {
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  padding: 6px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.format-btn:hover {
+  background: var(--accent-hover);
+}
+
+/* === JSON Tree === */
+.json-tree {
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.json-line {
+  white-space: nowrap;
+}
+
+.json-toggle {
+  display: inline-block;
+  width: 16px;
+  text-align: center;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.json-toggle:hover {
+  color: var(--accent);
+}
+
+.json-key { color: var(--json-key); }
+.json-string { color: var(--json-string); }
+.json-number { color: var(--json-number); }
+.json-bool { color: var(--json-bool); }
+.json-null { color: var(--json-null); }
+.json-bracket { color: var(--json-bracket); }
+
+.json-collapsed-hint {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 12px;
+}
+
+.json-children {
+  padding-left: 20px;
+}
+
+.json-children.collapsed {
+  display: none;
+}
+
+/* === Status Bar === */
+.statusbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 12px;
+  background: var(--subtle);
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.status-error {
+  color: var(--error);
+}
+
+.status-success {
+  color: var(--success);
+}
+
+/* === Error display === */
+.output-error {
+  color: var(--error);
+  padding: 8px 0;
+  font-size: 13px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* === Copy feedback === */
+.btn.copied {
+  color: var(--success);
+  border-color: var(--success);
+}
